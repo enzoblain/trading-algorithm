@@ -28,10 +28,20 @@ git clone https://github.com/yourusername/trading-algorithm.git
 cd trading-algorithm
 ```
 
-3. nstall the required Python packages:
+3. Install the required Python packages:
 ```bash
 pip install -r requirements.txt
 ```
+
+4. Configure the API key:
+
+This project requires an API key from Twelve Data to access financial data. You need to create a .env file in the root of the project and add your TWELVE_DATA_API_KEY:
+
+```bash
+TWELVE_DATA_API_KEY=your_api_key_here
+```
+
+Replace `your_api_key_here` with your actual Twelve Data API key. You can obtain this key by signing up at [Twelve Data](https://twelvedata.com/).
 
 ## Usage
 
