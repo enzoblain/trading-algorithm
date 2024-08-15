@@ -47,11 +47,11 @@ Make sure to configure any necessary settings or parameters in `main.py` as requ
 
 Contributions to the project are welcome! If you have suggestions or improvements, please follow these steps:
 
-    1. Fork the repository.
-    2. Create a new branch for your feature or fix.
-    3. Commit your changes.
-    4. Push to your forked repository.
-    5. Create a pull request describing your changes.
+1. Fork the repository.
+2. Create a new branch for your feature or fix.
+3. Commit your changes.
+4. Push to your forked repository.
+5. Create a pull request describing your changes.
 
 # Contact
 
