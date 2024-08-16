@@ -67,7 +67,7 @@ Contributions to the project are welcome! If you have suggestions or improvement
 
 For any questions or feedback, please reach out to:
 
-- Your Name - blenzodu57@gmail.com
+- Enzo Blain - blenzodu57@gmail.com
 - GitHub - https://github.com/enzoblain
 
 # Acknowledgements
