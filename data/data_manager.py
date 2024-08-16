@@ -33,8 +33,8 @@ def check_data(time_interval):
     with open(csv_path, 'a') as file:
         for _, row in df.iterrows():
             date_time = pd.Timestamp(row.name)
-            values = str(row['open']) + str(row['high']) + str(row['low'])+ str(row['close'])
+            values = str(row['open']) + ',' + str(row['high']) + ',' + str(row['low'])+ ',' + str(row['close'])
             if date_time > last_date:
-                file.write('\n' + str(pd.Timestamp(row.name)) + values)
+                file.write('\n' + str(pd.Timestamp(row.name)) + ',' + values)
     
     return True
