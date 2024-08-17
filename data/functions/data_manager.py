@@ -1,4 +1,4 @@
-from data.functions.data_fetcher import get_forex_candlestick_data, update_forex_candlestick_data
+from data.functions.data_fetcher import get_forex_candlestick_data
 from utils.config import SYMBOL, COLUMNS, CONFIGURATION
 from utils.functions import transform_dataframe_to_dict
 
@@ -27,7 +27,7 @@ def check_data(time_interval):
         if not os.path.exists(csv_path):
             return 
         csv_dict = transform_dataframe_to_dict(pd.read_csv(csv_path))
-        df = update_forex_candlestick_data(csv_dict)
+        df = get_forex_candlestick_data(data_to_calcul=csv_dict)
 
     if not os.path.exists(csv_path) or pd.read_csv(csv_path).empty or CONFIGURATION['DATA_UPDATE'] == 'edit':
         with open(csv_path, "w") as file:

@@ -15,7 +15,7 @@ def main():
 
     patterns = analyze(data) 
 
-    # show_graph(data, patterns=patterns)
+    show_graph(data, patterns=patterns)
 
 if __name__ =="__main__":
     main()
