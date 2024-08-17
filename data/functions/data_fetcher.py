@@ -44,3 +44,24 @@ def get_forex_candlestick_data(interval='5min', start_date=None, end_date=None):
     else:
         print("Error:", data.get('message', 'Unknown error'))
         return None
+    
+def update_forex_candlestick_data(candles):
+    for index, candle in enumerate(candles):
+        if 'average' not in COLUMNS:
+            COLUMNS.append('average')
+        candle['average'] = get_average(candle)
+        for sma in SMA:
+            if ('sma' + str(sma['value'])) not in COLUMNS:
+                COLUMNS.append('sma' + str(sma['value']))
+            if index >= sma['value'] - 1:
+                candle['sma' + str(sma['value'])] = get_sma(candles[index - (sma['value'] - 1):index + 1])
+            else: 
+                candle['sma' + str(sma['value'])] = ''
+
+    df = pd.DataFrame(candles)
+
+    df['datetime'] = pd.to_datetime(df['datetime'])
+    
+    df.set_index('datetime', inplace=True)
+    df = df[COLUMNS]
+    return df
