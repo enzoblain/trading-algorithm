@@ -1,7 +1,7 @@
 from utils.config import CONFIGURATION, TIMERANGES
 
-from data.data_manager import check_data
-from data.data_visualisation import show_graph
+from data.functions.data_manager import check_data
+from data.functions.data_visualisation import show_graph
 from analysis.analyze import analyze
 import pandas as pd
 

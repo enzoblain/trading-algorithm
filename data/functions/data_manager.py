@@ -1,11 +1,11 @@
-from data.data_fetcher import get_forex_candlestick_data
-from utils.config import SYMBOL
+from data.functions.data_fetcher import get_forex_candlestick_data
+from utils.config import SYMBOL, COLUMNS
 
 import os
 
 import pandas as pd
 
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 
 def check_data(time_interval):
     if not os.path.exists(f'data/{SYMBOL}'):
@@ -17,11 +17,11 @@ def check_data(time_interval):
 
     csv_path = f'data/{SYMBOL}/{time_interval}.csv'
 
+    df = get_forex_candlestick_data(interval=time_interval, end_date=datetime.strftime(tomorrow, '%Y-%m-%d'))
+
     if not os.path.exists(csv_path):
         with open(csv_path, "w") as file:
-            file.write('datetime,open,high,low,close,average,sma10')
-            
-    df = get_forex_candlestick_data(interval=time_interval, end_date=datetime.strftime(tomorrow, '%Y-%m-%d'))
+            file.write('datetime,' + ','.join(COLUMNS))
 
     csv_file = pd.read_csv(csv_path)
 
@@ -33,7 +33,7 @@ def check_data(time_interval):
     with open(csv_path, 'a') as file:
         for _, row in df.iterrows():
             date_time = pd.Timestamp(row.name)
-            values = str(row['open']) + ',' + str(row['high']) + ',' + str(row['low']) + ',' + str(row['close']) + ',' + str(row['average']) + ',' + str(row['sma10'])
+            values = ','.join([str(row[column]) for column in COLUMNS])
             if date_time > last_date:
                 file.write('\n' + str(pd.Timestamp(row.name)) + ',' + values)
     

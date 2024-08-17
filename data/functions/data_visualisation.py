@@ -1,3 +1,5 @@
+from utils.config import SMA
+
 import pandas as pd
 import plotly.graph_objects as go
 
@@ -25,13 +27,14 @@ def show_graph(df, max_rows=100, patterns=None):
         line=dict(color='orange', width=2)
     ))
 
-    fig.add_trace(go.Scatter(
-        x=df['datetime'],
-        y=df['sma10'],
-        mode='lines',
-        name='SMA 10',
-        line=dict(color='blue', width=2)
-    ))
+    for sma in SMA:
+        fig.add_trace(go.Scatter(
+            x=df['datetime'],
+            y=df['sma' + str(sma['value'])],
+            mode='lines',
+            name='SMA' + str(sma['value']),
+            line=dict(color=sma['color'], width=2)
+        ))
 
     if patterns:
         for fair_value_gap in patterns['Fair Value Gaps']:

@@ -5,7 +5,7 @@ CONFIGURATION = {
         "KEY": get_from_env("TWELVE_DATA_API_KEY"),
         "URL": 'https://api.twelvedata.com/time_series'
     },
-    "DATA_UPDATE": True
+    "DATA_UPDATE": False
 }
 
 SYMBOL = "EUR-USD"
@@ -19,4 +19,19 @@ TIMERANGES = [
     '4h',
     '1day',
     '1week'
+]
+
+COLUMNS = ['open', 'high', 'low', 'close']
+SMA = [
+    {
+        'value': 10,
+        'color': 'rgb(255, 233, 0)'
+    },
+    {
+        'value': 20,
+        'color': 'rgb(172, 178, 0)'
+    }, {
+        'value': 50,
+        'color': 'rgb(118, 122, 0)'
+    }
 ]
