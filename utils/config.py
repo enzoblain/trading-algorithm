@@ -5,7 +5,7 @@ CONFIGURATION = {
         "KEY": get_from_env("TWELVE_DATA_API_KEY"),
         "URL": 'https://api.twelvedata.com/time_series'
     },
-    "DATA_UPDATE": False
+    "DATA_UPDATE": True
 }
 
 SYMBOL = "EUR-USD"
