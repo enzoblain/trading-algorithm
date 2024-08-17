@@ -16,7 +16,7 @@ def is_fair_value_gap(data, candles):
         supposed_end = candles[2]['high']
         if supposed_begin <= supposed_end:
             return None
-    elif direction:
+    elif direction == "Bullish":
         supposed_begin = candles[0]['high']
         supposed_end = candles[2]['low']
         if supposed_begin >= supposed_end:
@@ -28,11 +28,9 @@ def is_fair_value_gap(data, candles):
         'Begin datetime': candles[0]['datetime'],
         'Begin price': supposed_begin,
         'End price': supposed_end,
-        'End datetime': candles[2]['datetime'],
+        'End datetime': candles[2]['datetime']
     }
 
-
-    if not is_still_valid(data, fair_value_gap):
-        return None
+    fair_value_gap['Still Valid'] = is_still_valid(data, fair_value_gap)
     
     return fair_value_gap

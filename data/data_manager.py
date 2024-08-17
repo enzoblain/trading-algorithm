@@ -19,9 +19,9 @@ def check_data(time_interval):
 
     if not os.path.exists(csv_path):
         with open(csv_path, "w") as file:
-            file.write('datetime,open,high,low,close')
+            file.write('datetime,open,high,low,close,average')
             
-    df = get_forex_candlestick_data(interval=time_interval, end_date=datetime.strftime(tomorrow, '%Y-%m-%d')) .iloc[::-1]
+    df = get_forex_candlestick_data(interval=time_interval, end_date=datetime.strftime(tomorrow, '%Y-%m-%d')).iloc[::-1]
 
     csv_file = pd.read_csv(csv_path)
 
@@ -33,7 +33,7 @@ def check_data(time_interval):
     with open(csv_path, 'a') as file:
         for _, row in df.iterrows():
             date_time = pd.Timestamp(row.name)
-            values = str(row['open']) + ',' + str(row['high']) + ',' + str(row['low'])+ ',' + str(row['close'])
+            values = str(row['open']) + ',' + str(row['high']) + ',' + str(row['low']) + ',' + str(row['close']) + ',' + str(row['average'])
             if date_time > last_date:
                 file.write('\n' + str(pd.Timestamp(row.name)) + ',' + values)
     

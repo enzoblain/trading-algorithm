@@ -11,3 +11,6 @@ def get_from_env(var):
         raise ValueError(f"{var} not found. Please set it in the .env file.")
 
     return value
+
+def transform_dataframe_to_dict(dataframe):
+    return dataframe.to_dict(orient='records')
