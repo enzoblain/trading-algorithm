@@ -1,6 +1,6 @@
-from utils.config import COLUMNS, SMA
+from utils.config import COLUMNS, EMA, SMA
 from calculs.candle import get_average
-from calculs.sma import get_sma
+from calculs.moving_averages import get_ema, get_sma
 
 def general_calculs(candles):
     for index, candle in enumerate(candles):
@@ -14,5 +14,13 @@ def general_calculs(candles):
                     candle['sma' + str(sma['value'])] = get_sma(candles[index - (sma['value'] - 1):index + 1])
                 else: 
                     candle['sma' + str(sma['value'])] = ''
+            
+            for ema in EMA:
+                if ('ema' + str(ema['value'])) not in COLUMNS:
+                    COLUMNS.append('ema' + str(ema['value']))
+                if index >= ema['value'] - 1:
+                    candle['ema' + str(ema['value'])] = get_ema(candles[index - (ema['value'] - 1):index + 1])
+                else: 
+                    candle['ema' + str(ema['value'])] = ''
 
     return candles

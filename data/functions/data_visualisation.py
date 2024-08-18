@@ -1,4 +1,4 @@
-from utils.config import SMA
+from utils.config import EMA, SMA
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -26,6 +26,15 @@ def show_graph(df, max_rows=100, patterns=None):
         name='Average',
         line=dict(color='orange', width=2)
     ))
+
+    for ema in EMA:
+        fig.add_trace(go.Scatter(
+            x=df['datetime'],
+            y=df['ema' + str(ema['value'])],
+            mode='lines',
+            name='EMA' + str(ema['value']),
+            line=dict(color=ema['color'], width=2)
+        ))
 
     for sma in SMA:
         fig.add_trace(go.Scatter(
