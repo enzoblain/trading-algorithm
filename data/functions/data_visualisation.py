@@ -2,6 +2,7 @@ from utils.config import EMA, SMA
 
 import pandas as pd
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 def show_graph(df, max_rows=100, patterns=None):
     if max_rows > 100:
@@ -9,15 +10,24 @@ def show_graph(df, max_rows=100, patterns=None):
 
     df = df.iloc[-max_rows:]
     df['datetime'] = pd.to_datetime(df['datetime'])
+
+    fig = make_subplots(
+        rows=2, 
+        cols=1, 
+        shared_xaxes=True, 
+        vertical_spacing=0.1, 
+        row_heights=[0.80, 0.2],
+        subplot_titles=('Trading Graph', 'RSI')
+    )
     
-    fig = go.Figure(data=[go.Candlestick(
+    fig.add_trace(go.Candlestick(
         x=df['datetime'],
         open=df['open'],
         high=df['high'],
         low=df['low'],
         close=df['close'],
         name='Candlestick'
-    )])
+    ), row=1, col=1)
 
     fig.add_trace(go.Scatter(
         x=df['datetime'],
@@ -44,6 +54,44 @@ def show_graph(df, max_rows=100, patterns=None):
             name='SMA' + str(sma['value']),
             line=dict(color=sma['color'], width=2)
         ))
+
+    fig.add_trace(go.Scatter(
+        x=df['datetime'],
+        y=df['rsi'],
+        mode='lines',
+        name='RSI',
+        line=dict(color='purple', width=2)
+    ), row=2, col=1)
+
+    # Update layout
+    fig.update_layout(
+        title='Trading Graph with RSI',
+        xaxis_title='Date',
+        yaxis_title='Price',
+        xaxis_rangeslider_visible=False,
+        yaxis2_title='RSI',
+        yaxis2=dict(range=[0, 100])
+    )
+
+    fig.add_shape(
+        type="line",
+        x0=df['datetime'].iloc[0],
+        x1=df['datetime'].iloc[-1],
+        y0=70,
+        y1=70,
+        line=dict(color="grey", width=1, dash="dash"),
+        row=2, col=1
+    )
+
+    fig.add_shape(
+        type="line",
+        x0=df['datetime'].iloc[0],
+        x1=df['datetime'].iloc[-1],
+        y0=30,
+        y1=30,
+        line=dict(color="grey", width=1, dash="dash"),
+        row=2, col=1
+    )
 
     if patterns:
         for fair_value_gap in patterns['Fair Value Gaps']:

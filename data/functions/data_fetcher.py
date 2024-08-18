@@ -17,12 +17,24 @@ def get_forex_candlestick_data(interval='5min', start_date=None, end_date=None, 
         
         response = requests.get(CONFIGURATION['API']['URL'], params=params)
         data = response.json()
+
+        response_rsi = requests.get(CONFIGURATION['API']['URL_RSI'], params=params)
+        data_rsi = response_rsi.json()
     
         if 'values' in data:
             candles = data['values'][::-1]
         else:
             print("Error:", data.get('message', 'Unknown error'))
             return None
+        
+        if 'values' in data_rsi:
+            rsi = data_rsi['values'][::-1]
+        else:
+            print("Error:", data.get('message', 'Unknown error'))
+            return None
+
+        for index, candle in enumerate(candles):
+            candle['rsi'] = rsi[index]['rsi']
         
     else:
         candles = data_to_calcul
