@@ -6,7 +6,7 @@ CONFIGURATION = {
         "URL": 'https://api.twelvedata.com/time_series',
         "URL_RSI": 'https://api.twelvedata.com/rsi'
     },
-    "DATA_UPDATE": 'edit' # False to do nothing, 'update' to add the 5000 last candles if they are not already in, 'edit' to make the calculs for all the values if it wasn't done (for example if we had a column but we want to keep the oldest values)
+    "DATA_UPDATE": False # False to do nothing, 'update' to add the 5000 last candles if they are not already in, 'edit' to make the calculs for all the values if it wasn't done (for example if we had a column but we want to keep the oldest values)
 }
 
 SYMBOL = "EUR-USD"
