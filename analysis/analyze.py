@@ -1,5 +1,5 @@
 from analysis.pattern_recognition.Fair_Value_Gap import is_fair_value_gap
-from calculs.candle import get_average
+from analysis.candle import get_average
 from utils.functions import transform_dataframe_to_dict
 
 def analyze(candles):

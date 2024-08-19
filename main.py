@@ -3,6 +3,7 @@ from utils.config import CONFIGURATION, TIMERANGES
 from data.functions.data_manager import check_data
 from data.functions.data_visualisation import show_graph
 from analysis.analyze import analyze
+from analysis.trend import get_trend_direction
 import pandas as pd
 
 def main():
@@ -15,7 +16,9 @@ def main():
 
     patterns = analyze(data) 
 
-    show_graph(data, patterns=patterns)
+    trends = get_trend_direction(data)
+
+    show_graph(data, patterns=patterns, trends=trends)
 
 if __name__ =="__main__":
     main()

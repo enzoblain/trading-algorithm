@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-def show_graph(df, max_rows=100, patterns=None):
+def show_graph(df, max_rows=100, patterns=None, trends=None):
     if max_rows > 100:
         print('You should display a maximum number of 150 candlestick to maintain a good readability in the graph')
 
@@ -109,6 +109,19 @@ def show_graph(df, max_rows=100, patterns=None):
                     line=dict(color="Blue", width=2),
                     fillcolor="rgba(0,0,255,0.2)"
                 )
+
+    if trends:
+        for trend in trends:
+            color = "rgba(0,255,0,0.2)" if trend['type'] == 'Bullish' else "rgba(255,0,0,0.2)"
+            fig.add_shape(
+                type="rect",
+                x0=trend['start'],
+                y0=min(df['low']),  # Adjust y0 and y1 as needed
+                x1=trend['end'],
+                y1=max(df['high']),
+                line=dict(color="rgba(255, 0, 0, 0)", width=0),  # Transparent border
+                fillcolor=color  # Background color with opacity
+            )
 
     fig.update_layout(
         title='Trading Graph',

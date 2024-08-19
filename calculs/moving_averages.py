@@ -1,4 +1,4 @@
-from calculs.candle import get_average
+from analysis.candle import get_average
 
 def get_sma(candles):
     value = 0
